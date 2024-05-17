@@ -18,6 +18,7 @@ class AddCountryCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -26,6 +27,7 @@ class AddCountryCommand extends Command
             ->addArgument('area', InputArgument::REQUIRED, 'Area name (EU or NON_EU)');
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $countryCode = $input->getArgument('countryCode');

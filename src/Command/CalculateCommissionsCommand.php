@@ -17,6 +17,7 @@ class CalculateCommissionsCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -24,6 +25,7 @@ class CalculateCommissionsCommand extends Command
             ->addArgument('inputFile', InputArgument::REQUIRED, 'Path to the input CSV file');
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $inputFile = $input->getArgument('inputFile');

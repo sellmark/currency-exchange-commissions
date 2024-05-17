@@ -16,12 +16,14 @@ class ShowAreasCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
             ->setDescription('Shows the defined areas and their countries.');
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $areas = $this->cache->getAreas();

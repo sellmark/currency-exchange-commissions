@@ -10,13 +10,14 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class ExchangeRateService implements ExchangeRateServiceInterface
 {
     private int $failedFetches = 0;
-    private const CACHE_KEY = 'exchange_rates';
-    private const CACHE_TTL = 60;
+    private const string CACHE_KEY = 'exchange_rates';
+    private const int CACHE_TTL = 60;
 
     public function __construct(private readonly HttpClientInterface $client, private readonly string $exchangeRateApiUrl, private readonly CacheInterface $cache, private readonly LoggerInterface $logger)
     {
     }
 
+    #[\Override]
     public function getExchangeRate(string $currency): float
     {
         try {
