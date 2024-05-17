@@ -2,8 +2,8 @@
 
 namespace App\Service\Cache;
 
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class CountryCache
 {
@@ -13,7 +13,7 @@ class CountryCache
     public function __construct(string $cacheDir = '/app/var/cache')
     {
         $this->filesystem = new Filesystem();
-        $this->cacheFile = rtrim($cacheDir, '/') . '/country_cache.json';
+        $this->cacheFile = rtrim($cacheDir, '/').'/country_cache.json';
     }
 
     public function getAreas(): array
@@ -23,7 +23,7 @@ class CountryCache
                 $content = file_get_contents($this->cacheFile);
                 $areas = json_decode($content, true);
 
-                if (json_last_error() !== JSON_ERROR_NONE) {
+                if (JSON_ERROR_NONE !== json_last_error()) {
                     throw new \RuntimeException('Invalid JSON in cache file');
                 }
 
@@ -70,11 +70,12 @@ class CountryCache
             'EU' => [
                 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR',
                 'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL',
-                'PT', 'RO', 'SE', 'SI', 'SK'
+                'PT', 'RO', 'SE', 'SI', 'SK',
             ],
-            'NON_EU' => []
+            'NON_EU' => [],
         ];
         $this->saveAreas($areas);
+
         return $areas;
     }
 }

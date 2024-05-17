@@ -2,12 +2,12 @@
 
 namespace App\Tests\Command;
 
-use App\Command\CalculateCommissionsCommand;
 use App\Command\AddCountryCommand;
-use App\Service\CommissionCalculator;
-use App\Service\ExchangeRate\ExchangeRateService;
+use App\Command\CalculateCommissionsCommand;
 use App\Service\BinDictionary\BinLookupService;
 use App\Service\Cache\CountryCache;
+use App\Service\CommissionCalculator;
+use App\Service\ExchangeRate\ExchangeRateService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -19,7 +19,7 @@ class CalculateCommissionsCommandTest extends TestCase
         'USD' => 1.1497,
         'JPY' => 129.53,
         'EUR' => 1.00,
-        'GBP' => 0.8586
+        'GBP' => 0.8586,
     ];
 
     private const EXPECTED_EU_OUTPUT = "1\n0.44\n0.78\n1.14\n23.3\n";
@@ -30,7 +30,7 @@ class CalculateCommissionsCommandTest extends TestCase
         $parameterBag = $this->createMock(ParameterBagInterface::class);
         $parameterBag->method('get')->willReturnMap([
             ['mock_service_url', 'http://mock/mock_binlist.php'],
-            ['exchange_rate_api_url', 'https://api.exchangeratesapi.io/latest']
+            ['exchange_rate_api_url', 'https://api.exchangeratesapi.io/latest'],
         ]);
 
         $binLookupService = $this->createMock(BinLookupService::class);
@@ -38,13 +38,13 @@ class CalculateCommissionsCommandTest extends TestCase
 
         $exchangeRateService = $this->createMock(ExchangeRateService::class);
         $exchangeRateService->method('getExchangeRate')->willReturnMap(array_map(
-            fn($rate) => [$rate, self::EXCHANGE_RATES[$rate]],
+            fn ($rate) => [$rate, self::EXCHANGE_RATES[$rate]],
             array_keys(self::EXCHANGE_RATES)
         ));
 
         $cache = $this->createMock(CountryCache::class);
         $cache->method('getAreas')->willReturn([
-            'EU' => ['DE']
+            'EU' => ['DE'],
         ]);
         $cache->expects($this->never())->method('clearCache');
 
@@ -64,12 +64,12 @@ class CalculateCommissionsCommandTest extends TestCase
         $commandTesterAdd = new CommandTester($application->find('app:add-country'));
         $commandTesterAdd->execute([
             'countryCode' => 'DE',
-            'area' => 'EU'
+            'area' => 'EU',
         ]);
 
         $commandTesterCalculate = new CommandTester($application->find('app:calculate-commissions'));
         $commandTesterCalculate->execute([
-            'inputFile' => __DIR__ . '/../../data/input.txt'
+            'inputFile' => __DIR__.'/../../data/input.txt',
         ]);
 
         $output = $commandTesterCalculate->getDisplay();
@@ -88,7 +88,7 @@ class CalculateCommissionsCommandTest extends TestCase
 
         $commandTesterCalculate = new CommandTester($application->find('app:calculate-commissions'));
         $commandTesterCalculate->execute([
-            'inputFile' => __DIR__ . '/../../data/input.txt'
+            'inputFile' => __DIR__.'/../../data/input.txt',
         ]);
 
         $output = $commandTesterCalculate->getDisplay();

@@ -1,11 +1,11 @@
 <?php
 
-use Rector\Set\ValueObject\SetList;
 use Rector\Config\RectorConfig;
+use Rector\Set\ValueObject\SetList;
 use Rector\ValueObject\PhpVersion;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths([__DIR__ . '/src']);
+    $rectorConfig->paths([__DIR__.'/src']);
     $rectorConfig->phpVersion(PhpVersion::PHP_83);
     $rectorConfig->import(SetList::PHP_72);
     $rectorConfig->import(SetList::PHP_73);

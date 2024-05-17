@@ -13,7 +13,7 @@ class BinLookupService implements BinDictionaryServiceInterface
     #[\Override]
     public function getCountryCode(string $bin): string
     {
-        $binResults = $this->client->request('GET', $this->mockServiceUrl . '?bin=' . $bin)->toArray();
+        $binResults = $this->client->request('GET', $this->mockServiceUrl.'?bin='.$bin)->toArray();
 
         return $binResults['country']['alpha2'];
     }

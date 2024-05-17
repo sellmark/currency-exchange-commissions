@@ -8,7 +8,6 @@ readonly class CSVRecord
         public string $bin,
         public float $amount,
         public string $currency
-    )
-    {
+    ) {
     }
 }

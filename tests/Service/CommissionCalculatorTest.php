@@ -2,10 +2,10 @@
 
 namespace App\Tests\Service;
 
-use App\Service\CommissionCalculator;
-use App\Service\ExchangeRate\ExchangeRateService;
 use App\Service\BinDictionary\BinLookupService;
 use App\Service\Cache\CountryCache;
+use App\Service\CommissionCalculator;
+use App\Service\ExchangeRate\ExchangeRateService;
 use PHPUnit\Framework\TestCase;
 
 class CommissionCalculatorTest extends TestCase
@@ -19,7 +19,7 @@ class CommissionCalculatorTest extends TestCase
         'USD' => 1.1497,
         'JPY' => 129.53,
         'EUR' => 1.00,
-        'GBP' => 0.8586
+        'GBP' => 0.8586,
     ];
 
     private const EXPECTED_EU_RESULTS = [1.0, 0.44, 0.78, 1.14, 23.3];
@@ -42,7 +42,7 @@ class CommissionCalculatorTest extends TestCase
     {
         $this->binLookupService->method('getCountryCode')->willReturn($countryCode);
         $this->exchangeRateService->method('getExchangeRate')->willReturnMap(array_map(
-            fn($rate) => [$rate, self::EXCHANGE_RATES[$rate]],
+            fn ($rate) => [$rate, self::EXCHANGE_RATES[$rate]],
             array_keys(self::EXCHANGE_RATES)
         ));
     }
@@ -50,7 +50,7 @@ class CommissionCalculatorTest extends TestCase
     public function testCalculateCommissionsWithEUCommissionRate(): void
     {
         $this->setupMocks('DE');
-        $inputFile = __DIR__ . '/../../../data/input.txt';
+        $inputFile = __DIR__.'/../../../data/input.txt';
 
         $results = $this->calculator->calculateCommissions($inputFile);
 
@@ -60,7 +60,7 @@ class CommissionCalculatorTest extends TestCase
     public function testCalculateCommissionsWithNonEUCommissionRate(): void
     {
         $this->setupMocks('US');
-        $inputFile = __DIR__ . '/../../../data/input.txt';
+        $inputFile = __DIR__.'/../../../data/input.txt';
 
         $results = $this->calculator->calculateCommissions($inputFile);
 

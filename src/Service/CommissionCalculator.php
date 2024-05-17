@@ -12,7 +12,7 @@ readonly class CommissionCalculator
 {
     public function __construct(
         public CountryCache $cache,
-        public ExchangeRateServiceInterface  $exchangeRateService,
+        public ExchangeRateServiceInterface $exchangeRateService,
         public BinDictionaryServiceInterface $binLookupService
     ) {
     }
@@ -21,7 +21,7 @@ readonly class CommissionCalculator
     {
         $results = [];
         $handle = fopen($inputFile, 'r');
-        if ($handle === false) {
+        if (false === $handle) {
             $this->cache->clearCache();
             throw new \RuntimeException('Unable to open input file');
         }
@@ -29,14 +29,14 @@ readonly class CommissionCalculator
         while (($line = fgets($handle)) !== false) {
             $record = json_decode($line, true);
 
-            if (json_last_error() !== JSON_ERROR_NONE) {
+            if (JSON_ERROR_NONE !== json_last_error()) {
                 throw new \RuntimeException("Invalid JSON in ROW: $line");
             }
 
-            $csvRecord = new CSVRecord($record['bin'], (float)$record['amount'], $record['currency']);
+            $csvRecord = new CSVRecord($record['bin'], (float) $record['amount'], $record['currency']);
 
             $rate = $this->exchangeRateService->getExchangeRate($csvRecord->currency);
-            $amountInEur = $csvRecord->currency === 'EUR' ? $csvRecord->amount : $csvRecord->amount / $rate;
+            $amountInEur = 'EUR' === $csvRecord->currency ? $csvRecord->amount : $csvRecord->amount / $rate;
 
             $countryCode = $this->binLookupService->getCountryCode($csvRecord->bin);
 

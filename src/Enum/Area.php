@@ -12,7 +12,7 @@ enum Area: string
         $euCountries = [
             'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR',
             'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL',
-            'PT', 'RO', 'SE', 'SI', 'SK'
+            'PT', 'RO', 'SE', 'SI', 'SK',
         ];
 
         return in_array($countryCode, $euCountries, true);
@@ -20,7 +20,7 @@ enum Area: string
 
     public function getCommissionRate(): float
     {
-        return match($this) {
+        return match ($this) {
             self::EU => 0.01,
             self::NON_EU => 0.02,
         };

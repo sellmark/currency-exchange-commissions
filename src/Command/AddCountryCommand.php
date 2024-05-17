@@ -37,6 +37,7 @@ class AddCountryCommand extends Command
             $areaEnum = Area::from($area);
         } catch (\ValueError) {
             $output->writeln(sprintf('<error>Invalid area: %s. Must be "EU" or "NON_EU".</error>', $area));
+
             return Command::INVALID;
         }
 
@@ -48,6 +49,7 @@ class AddCountryCommand extends Command
         foreach ($areas as $code => $countries) {
             if (in_array($countryCode, array_values($countries))) {
                 $output->writeln(sprintf('Country %s already exists in area %s.', $countryCode, $code));
+
                 return Command::FAILURE;
             }
         }
