@@ -1,0 +1,32 @@
+parameters:
+    mock_service_url: '%env(MOCK_SERVICE_URL)%'
+    exchange_rate_api_url: '%env(EXCHANGE_RATE_API_URL)%'
+    exchange_rate_api_key: '%env(EXCHANGE_RATE_API_KEY)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Tests,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    app.cache.country_cache:
+        class: App\Service\CountryCache
+
+    # Ensure the HttpClient service uses the correct interface
+    Symfony\Contracts\HttpClient\HttpClientInterface: '@http_client'
+
+    # Bind parameters to service constructors
+    App\Service\ExchangeRate\ExchangeRateService:
+        arguments:
+            $exchangeRateApiUrl: '%exchange_rate_api_url%'
+
+    App\Service\BinDictionary\BinLookupService:
+        arguments:
+            $mockServiceUrl: '%mock_service_url%'

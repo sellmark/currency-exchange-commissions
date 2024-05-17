@@ -1,0 +1,3 @@
+MOCK_SERVICE_URL=http://mock/mock_binlist.php
+EXCHANGE_RATE_API_URL=https://api.exchangeratesapi.io/latest
+EXCHANGE_RATE_API_KEY=your_api_key

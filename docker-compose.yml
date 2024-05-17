@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - ./data:/data
+      - ./var/cache:/app/var/cache  # Ensure the cache directory is mounted
+    env_file:
+      - .env
+    command: ["php", "bin/console"]
+    depends_on:
+      - mock
+
+  mock:
+    build:
+      context: .
+      dockerfile: Dockerfile.mock
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app

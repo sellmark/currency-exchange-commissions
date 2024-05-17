@@ -1,0 +1,11 @@
+# Use the official PHP CLI image
+FROM php:8.3-cli
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the mock script to the container
+COPY mock_binlist.php /app/
+
+# Start the PHP built-in server
+CMD ["php", "-S", "0.0.0.0:80", "mock_binlist.php"]
