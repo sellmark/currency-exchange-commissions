@@ -12,12 +12,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'app:calculate-commissions')]
 class CalculateCommissionsCommand extends Command
 {
-    private CommissionCalculator $calculator;
-
-    public function __construct(CommissionCalculator $calculator)
+    public function __construct(private readonly CommissionCalculator $calculator)
     {
         parent::__construct();
-        $this->calculator = $calculator;
     }
 
     protected function configure(): void

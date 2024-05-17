@@ -13,12 +13,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'app:add-country')]
 class AddCountryCommand extends Command
 {
-    private CountryCache $cache;
-
-    public function __construct(CountryCache $cache)
+    public function __construct(private readonly CountryCache $cache)
     {
         parent::__construct();
-        $this->cache = $cache;
     }
 
     protected function configure(): void
@@ -36,7 +33,7 @@ class AddCountryCommand extends Command
 
         try {
             $areaEnum = Area::from($area);
-        } catch (\ValueError $e) {
+        } catch (\ValueError) {
             $output->writeln(sprintf('<error>Invalid area: %s. Must be "EU" or "NON_EU".</error>', $area));
             return Command::INVALID;
         }

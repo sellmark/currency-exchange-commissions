@@ -24,7 +24,7 @@ class CalculateCommissionsCommandTest extends TestCase
         ]);
 
         $binLookupService = $this->createMock(BinLookupService::class);
-        $binLookupService->method('getCountryCode')->willReturn('DE'); // Return 'DE' for any BIN
+        $binLookupService->method('getCountryCode')->willReturn('DE');
 
         $exchangeRateService = $this->createMock(ExchangeRateService::class);
         $exchangeRateService->method('getExchangeRate')->willReturnMap([

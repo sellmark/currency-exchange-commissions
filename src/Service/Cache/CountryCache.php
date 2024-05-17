@@ -7,8 +7,8 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class CountryCache
 {
-    private string $cacheFile;
-    private Filesystem $filesystem;
+    private readonly string $cacheFile;
+    private readonly Filesystem $filesystem;
 
     public function __construct(string $cacheDir = '/app/var/cache')
     {
@@ -28,7 +28,7 @@ class CountryCache
                 }
 
                 return $areas;
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 return $this->recreateCacheFile();
             }
         }
