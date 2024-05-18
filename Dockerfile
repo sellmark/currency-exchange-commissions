@@ -4,7 +4,7 @@ WORKDIR /srv
 
 COPY ["./composer.json", "./composer.lock", "/srv/"]
 
-RUN composer install --no-dev --no-scripts --no-interaction
+RUN composer install --no-scripts --no-interaction
 
 # Second stage: Set up the final application image
 FROM php:8.3-cli as server
