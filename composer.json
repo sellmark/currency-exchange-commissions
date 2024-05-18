@@ -1,5 +1,5 @@
 {
-    "name": "yourname/commission-calculator",
+    "name": "sellmark/commission-calculator",
     "description": "A PHP CLI application to calculate commissions",
     "type": "project",
     "require": {

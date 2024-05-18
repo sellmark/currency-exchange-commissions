@@ -6,12 +6,11 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/app
+      - ./src:/srv/src
       - ./data:/data
-      - ./var/cache:/app/var/cache  # Ensure the cache directory is mounted
+      - ./var/cache:/srv/var/cache
     env_file:
       - .env
-    command: ["php", "bin/console"]
     depends_on:
       - mock
 
@@ -22,4 +21,4 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - .:/app
+      - ./mock_data:/srv

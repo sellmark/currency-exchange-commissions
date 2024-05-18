@@ -1,17 +1,17 @@
-## Copy _env to .env
-and start hacking!
+## How to run in few steps
 
+1. Copy _env to .env
 `docker compose build --no-cache`
 `docker compose up -d`
 
-Main task:
+2. Main task:
 `docker compose run php php bin/console app:calculate-commissions /data/input.txt`
 
-Run tests:
+3. Run tests:
 `docker compose run php php vendor/bin/phpunit`
 
-Additional work done for handling countries and zones easy way:
+4. Additional work done for handling countries and zones easy way:
 `docker compose run php php bin/console app:show-areas`
 
-Add country to an Area, example:
+5. Add country to an Area, example:
 `docker compose run php php bin/console app:add-country GB, NON_EU`

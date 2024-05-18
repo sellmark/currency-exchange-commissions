@@ -54,7 +54,7 @@ class AddCountryCommand extends Command
             }
         }
 
-        $this->cache->addCountryToArea($countryCode, $areaEnum);
+        $this->cache->addCountryToArea($countryCode, $areaEnum->value);
         $output->writeln(sprintf('Added country %s to area %s.', $countryCode, $areaEnum->value));
 
         return Command::SUCCESS;
